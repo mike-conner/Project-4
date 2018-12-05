@@ -7,23 +7,13 @@
 //
 
 enum EntrantType {
-    case guest
-    case employee
-    case manager
-    case defaultValue
-}
-
-enum GuestType {
     case classicGuest
     case vipGuest
     case freeChildGuest
-}
-
-enum EmployeeType {
     case foodServices
     case rideServices
     case maintenance
-    case maanager
+    case manager
 }
 
 enum AreaAccess {
@@ -32,19 +22,16 @@ enum AreaAccess {
     case rideControlArea
     case maintenanceArea
     case officeArea
-    case defaultValue
 }
 
 enum RideAccess {
     case canNotSkipLines
     case canSkipLines
-    case defaultValue
 }
 
 enum Discount {
     case food
     case merchandise
-    case defaultValue
 }
 
 enum PersonalInformation {
@@ -58,7 +45,6 @@ enum PersonalInformation {
     case SSN
     case dateOfBirth
     case managementTier
-    case defaultValue
 }
 
 enum ManagementTier {
@@ -67,4 +53,11 @@ enum ManagementTier {
     case seniorManager
 }
 
-
+enum MissingInformation {
+    case missingEntrantType
+    case missingAreaAccess
+    case missingRideAccess
+    case missingDiscount
+    case missingPersonInformation
+    case missingManagementTier
+}

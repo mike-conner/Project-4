@@ -6,51 +6,24 @@
 //  Copyright © 2018 Mike Conner. All rights reserved.
 //
 
-class Visitor {
-    let entrantType: EntrantType
-    let areaAccess: [AreaAccess]
-    let rideAccess: [RideAccess]
-    let discount: [Discount: Int]
-    let personalInformation: [PersonalInformation: Any]
-    
-    init() {
-        entrantType = .defaultValue
-        areaAccess = [.defaultValue]
-        rideAccess = [.defaultValue]
-        discount = [.defaultValue: 0]
-        personalInformation = [.defaultValue: 0]
-    }
-    
-    init(entrantType: EntrantType, areaAccess: [AreaAccess], rideAccess: [RideAccess], discount: [Discount : Int], personalInformation: [PersonalInformation : Any]) {
-        self.entrantType = entrantType
-        self.areaAccess = areaAccess
-        self.rideAccess = rideAccess
-        self.discount = discount
-        self.personalInformation = personalInformation
-    }
-    
-    
+protocol SetUpVisitor {
+    var entrantType: EntrantType { get }
+    var areaAccess: [AreaAccess] { get }
+    var rideAccess: [RideAccess] { get }
+    var discount: [Discount: Int] { get }
+    var personalInformation: [PersonalInformation: Any] { get }
+}
+
+struct Visitor: SetUpVisitor {
+    var entrantType: EntrantType
+    var areaAccess: [AreaAccess]
+    var rideAccess: [RideAccess]
+    var discount: [Discount: Int]
+    var personalInformation: [PersonalInformation: Any]
 }
 
 
-class Guest: Visitor {
-    var guestType: GuestType
-    
-    init(guestType: GuestType) {
-        self.guestType = guestType
-        super.init()
-    }
-    
-}
 
-class Employee: Visitor {
-    var employeeType: EmployeeType
-    
-    init(employeeType: EmployeeType) {
-        self.employeeType = employeeType
-        super.init()
-    }
-}
 
 
 
