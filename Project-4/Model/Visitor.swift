@@ -8,6 +8,7 @@
 
 import Foundation
 
+// List the different types of visitors
 enum EntrantType {
     case classicGuest
     case vipGuest
@@ -18,6 +19,7 @@ enum EntrantType {
     case manager
 }
 
+// List the personal information that may be asked on the registration form.
 enum PersonalInformation {
     case firstName
     case lastName
@@ -31,6 +33,7 @@ enum PersonalInformation {
     case managementTier
 }
 
+// List the different errors that are possible from missing data on the registration form.
 enum RegistrationError: Error {
     case missingFirstName
     case missingLastName

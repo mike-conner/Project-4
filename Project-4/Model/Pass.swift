@@ -87,7 +87,7 @@ class Pass {
 // Extension Declaration
 
 extension Pass {
-    func swipeTheEntrants (pass: Pass, forAccessTo: AreaAccess? = nil, forRideAccessTo: RideAccess? = nil, getsDiscountOf: Discount? = nil) {
+    func swipeTheEntrants (pass: Pass, forAccessTo: AreaAccess? = nil, forRideAccessTo: RideAccess? = nil, getsDiscountOn: Discount? = nil) {
         var resultOfSwipingThePass: [String] = []
         var temporaryCountingVariable: Int = 0
         for index in 0..<pass.areaAccess.count {
@@ -120,8 +120,16 @@ extension Pass {
                 break
             }
         }
-        if let foodDiscount = pass.discount[.food] { resultOfSwipingThePass.append("\(entrantsName) has a food disount of: \(foodDiscount)%") }
-        if let merchandiseDiscount = pass.discount[.merchandise] { resultOfSwipingThePass.append("\(entrantsName) has a merchandise disount of: \(merchandiseDiscount)%") }
+        if getsDiscountOn != nil {
+            switch getsDiscountOn {
+            case .food?:
+                if let foodDiscount = pass.discount[.food] { resultOfSwipingThePass.append("\(entrantsName) has a food disount of: \(foodDiscount)%")}
+            case .merchandise?:
+                if let merchandiseDiscount = pass.discount[.merchandise] { resultOfSwipingThePass.append("\(entrantsName) has a merchandise disount of: \(merchandiseDiscount)%") }
+            case .none:
+                break
+            }
+        }
         
         // Print out the results
         for index in 0..<resultOfSwipingThePass.count {
