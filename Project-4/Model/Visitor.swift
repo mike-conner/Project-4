@@ -68,11 +68,10 @@ struct Visitor: SetUpVisitor {
                     guard let date = visitor.personalInformation[.dateOfBirth] as? String else {
                         throw RegistrationError.birthdayError
                     }
-                    let dateFormat = "MM/MM/yyyy"
+                    let dateFormat = "dd/MM/yyyy"
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = dateFormat
-                    dateFormatter.dateStyle = .short
                     
                     guard let birthDate = dateFormatter.date(from: date) else {
                         throw RegistrationError.birthdayError
