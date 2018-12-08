@@ -130,7 +130,5 @@ extension Pass {
         for index in 0..<resultOfSwipingThePass.count {
             print(resultOfSwipingThePass[index])
         }
-            
     }
-    
 }

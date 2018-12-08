@@ -56,6 +56,7 @@ struct Visitor: SetUpVisitor {
     let entrantType: EntrantType
     let personalInformation: [PersonalInformation: Any]
     
+    // Perform error checking based on entrant type and the information that was entered into the form.
     func checkRegistrationForErrors(visitor: Visitor) throws -> Bool {
         do {
             switch visitor.entrantType {
@@ -68,7 +69,7 @@ struct Visitor: SetUpVisitor {
                     guard let date = visitor.personalInformation[.dateOfBirth] as? String else {
                         throw RegistrationError.birthdayError
                     }
-                    let dateFormat = "dd/MM/yyyy"
+                    let dateFormat = "MM/dd/yyyy"
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = dateFormat
