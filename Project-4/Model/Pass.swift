@@ -93,7 +93,7 @@ class Pass {
 // Only required parameter is the pass, the other four parameters are optional and dependant on what they are trying to do.
 
 extension Pass {
-    func swipeTheEntrants (pass: Pass, forAccessTo: AreaAccess? = nil, forRideAccessTo: RideAccess? = nil, getsDiscountOnFood: Discount? = nil, getsDiscountOnMerchandise: Discount? = nil) {
+    func swipeTheEntrants (pass: Pass, forAccessTo: AreaAccess? = nil, toSkipLines: Bool? = nil, getsDiscountOnFood: Discount? = nil, getsDiscountOnMerchandise: Discount? = nil) {
         
         var resultOfSwipingThePass: [String] = [] // Array to store the results of the "swipe".
         var temporaryCountingVariable: Int = 0  // Temporary local variable used for checking array to see if the visitory has been granted access to a specific area.
@@ -110,7 +110,7 @@ extension Pass {
             }
         }
         
-        if forRideAccessTo != nil {
+        if toSkipLines != nil {
             switch pass.rideAccess[0] {
             case .canSkipLines:
                 resultOfSwipingThePass.append("\(entrantsName) can ride all rides and skip ride lines.")
