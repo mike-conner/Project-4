@@ -6,7 +6,6 @@
 //  Copyright © 2018 Mike Conner. All rights reserved.
 //
 
-import Foundation
 
 // List the different types of visitors
 enum EntrantType {

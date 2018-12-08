@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mike Conner. All rights reserved.
 //
 
-import Foundation
-
+// List the different possible areas to access.
 enum AreaAccess: String {
     case amusementArea = "Amusement Area"
     case kitchenArea = "Kitchen Area"
@@ -16,17 +15,19 @@ enum AreaAccess: String {
     case officeArea = "Office Area"
 }
 
+// List whether a user can skip lines or cannot skip lines.
 enum RideAccess {
     case canNotSkipLines
     case canSkipLines
 }
 
+// List the different types of discounts offered.
 enum Discount {
     case food
     case merchandise
 }
 
-
+// Class declaration for Pass
 class Pass {
     var entrantsName: String = ""
     var areaAccess: [AreaAccess] = []
@@ -40,7 +41,7 @@ class Pass {
             entrantsName = "This visitor"
         }
         
-        // Set values of based on entrant type according to the buisness rules provided.
+        // Set values of based on entrant type according to the buisness rules.
         switch visitor.entrantType {
         case .classicGuest:
             areaAccess.append(.amusementArea)
@@ -84,12 +85,19 @@ class Pass {
 }
 
 
-// Extension Declaration
+// Define the "Swipe" function.
+// Function gets called when a visitor swipes their card when:
+// 1. trying to enter an "area" in the amusement park,
+// 2. seeing if they can ride one of the rides and/or if they can skip the lines,
+// 3. at a store to determine their discount.
+// Only required parameter is the pass, the other four parameters are optional and dependant on what they are trying to do.
 
 extension Pass {
-    func swipeTheEntrants (pass: Pass, forAccessTo: AreaAccess? = nil, forRideAccessTo: RideAccess? = nil, getsDiscountOn: Discount? = nil) {
-        var resultOfSwipingThePass: [String] = []
-        var temporaryCountingVariable: Int = 0
+    func swipeTheEntrants (pass: Pass, forAccessTo: AreaAccess? = nil, forRideAccessTo: RideAccess? = nil, getsDiscountOnFood: Discount? = nil, getsDiscountOnMerchandise: Discount? = nil) {
+        
+        var resultOfSwipingThePass: [String] = [] // Array to store the results of the "swipe".
+        var temporaryCountingVariable: Int = 0  // Temporary local variable used for checking array to see if the visitory has been granted access to a specific area.
+        
         for index in 0..<pass.areaAccess.count {
             if forAccessTo == pass.areaAccess[index] {
                 if let accessTo = forAccessTo?.rawValue {
@@ -101,39 +109,29 @@ extension Pass {
                     resultOfSwipingThePass.append("\(entrantsName) DOES NOT have access to the \(accessTo).") }
             }
         }
-        if pass.rideAccess[0] == forRideAccessTo {
-            switch forRideAccessTo {
-            case .canSkipLines?:
+        
+        if forRideAccessTo != nil {
+            switch pass.rideAccess[0] {
+            case .canSkipLines:
                 resultOfSwipingThePass.append("\(entrantsName) can ride all rides and skip ride lines.")
-            case .canNotSkipLines?:
-                resultOfSwipingThePass.append("\(entrantsName) can ride all rides but cannot skip any lines.")
             default:
-                break
-            }
-        } else {
-            switch forRideAccessTo {
-            case .canSkipLines?:
-                resultOfSwipingThePass.append("\(entrantsName) can ride all rides and skip ride lines.")
-            case .canNotSkipLines?:
                 resultOfSwipingThePass.append("\(entrantsName) can ride all rides but cannot skip any lines.")
-            default:
-                break
-            }
-        }
-        if getsDiscountOn != nil {
-            switch getsDiscountOn {
-            case .food?:
-                if let foodDiscount = pass.discount[.food] { resultOfSwipingThePass.append("\(entrantsName) has a food disount of: \(foodDiscount)%")}
-            case .merchandise?:
-                if let merchandiseDiscount = pass.discount[.merchandise] { resultOfSwipingThePass.append("\(entrantsName) has a merchandise disount of: \(merchandiseDiscount)%") }
-            case .none:
-                break
             }
         }
         
-        // Print out the results
+        if getsDiscountOnFood != nil {
+            if let foodDiscount = pass.discount[.food] { resultOfSwipingThePass.append("\(entrantsName) has a food disount of: \(foodDiscount)%")}
+        }
+        if getsDiscountOnMerchandise != nil {
+            if let merchandiseDiscount = pass.discount[.merchandise] { resultOfSwipingThePass.append("\(entrantsName) has a merchandise disount of: \(merchandiseDiscount)%") }
+        }
+        
+        // Print out the results of the array to the screen.
         for index in 0..<resultOfSwipingThePass.count {
             print(resultOfSwipingThePass[index])
         }
+        print("\n")
+        
     }
+    
 }
