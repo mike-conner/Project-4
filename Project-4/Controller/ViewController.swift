@@ -22,7 +22,7 @@ class ViewController: UIViewController {
             let pass = Pass(visitor: visitor)
             // Check to see if the visitor's pass has access to a specific area, if they can skip the ride lines, and/or if they get a discount on either food or merchandise.
             // Only required parameter is the Pass. Other three parameters are option depending on what you want to know.
-            pass.swipeTheEntrants(pass: pass, forAccessTo: .amusementArea, forRideAccessTo: .canNotSkipLines,  getsDiscountOn: .merchandise)
+            pass.swipeTheEntrants(pass: pass, forAccessTo: .officeArea, forRideAccessTo: .canNotSkipLines,  getsDiscountOn: .merchandise)
         }
         
         
