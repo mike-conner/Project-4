@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         
         
         // Create the visitor to the park by entering in their information. This information will be populated by hitting "submit" on the form in the next Unit.
-        
+/*
         print("\rFirst Visitor: Classic Guest (test 1)\r") // Added for console readability. Prints a "header" for each visitor.
         let firstVisitorTestOne = Visitor(entrantType: .classicGuest, personalInformation: [:])
         // Check for missing information on the registration form by comparing it to the required information based on the entrant type (i.e, classic guest, manager, etc.).
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
             let pass = Pass(visitor: secondVisitorTestTwo)
             pass.swipeTheEntrants(pass: pass, forAccessTo: .kitchenArea, toSkipLines: true, getsDiscountOnFood: .food, getsDiscountOnMerchandise: .merchandise)
         }
-        
+*/
         print("\rThird Visitor: Free Child Guest (test 1)\r")
         let thirdVisitorTestOne = Visitor(entrantType: .freeChildGuest, personalInformation: [.firstName: "Bob", .lastName: "Benton"]) // Only first and last name provided. Free Child Guest requires birthdate!
         if (try? thirdVisitorTestOne.checkRegistrationForErrors(visitor: thirdVisitorTestOne)) != false {
@@ -63,6 +63,13 @@ class ViewController: UIViewController {
             pass.swipeTheEntrants(pass: pass, forAccessTo: .amusementArea, toSkipLines: true)
         }
         
+        print("\rThird Visitor: Free Child Guest (test 3)\r")
+        let thirdVisitorTestThree = Visitor(entrantType: .freeChildGuest, personalInformation: [.firstName: "Bob", .lastName: "Benton", .dateOfBirth: "12/8/2013"]) // Same as above but now the visitor is over 5 years old.
+        if (try? thirdVisitorTestThree.checkRegistrationForErrors(visitor: thirdVisitorTestThree)) != false {
+            let pass = Pass(visitor: thirdVisitorTestThree)
+            pass.swipeTheEntrants(pass: pass, forAccessTo: .amusementArea, toSkipLines: true)
+        }
+/*
         print("\rFourth Visitor: Food Services (test 1)\r")
         let fourthVisitorTestOne = Visitor(entrantType: .foodServices, personalInformation: [.firstName: "Chuck", .lastName: "Chilton", .streetAddress: "444 Ave", .city: "Hometown", .state: "FL", .zipCode: "4444", .SSN: "444-44-4444" , .dateOfBirth: "12/5/1988"])
         if (try? fourthVisitorTestOne.checkRegistrationForErrors(visitor: fourthVisitorTestOne)) != false {
@@ -125,6 +132,7 @@ class ViewController: UIViewController {
             let pass = Pass(visitor: seventhVisitorTestThree)
             pass.swipeTheEntrants(pass: pass, forAccessTo: .amusementArea, toSkipLines: true, getsDiscountOnFood: .food, getsDiscountOnMerchandise: .merchandise)
         }
+ */
     }
 }
 

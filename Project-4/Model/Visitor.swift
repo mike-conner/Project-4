@@ -5,7 +5,7 @@
 //  Created by Mike Conner on 12/7/18.
 //  Copyright © 2018 Mike Conner. All rights reserved.
 //
-
+import Foundation
 
 // List the different types of visitors
 enum EntrantType {
@@ -43,6 +43,8 @@ enum RegistrationError: Error {
     case missingSSN
     case missingDateOfBirth
     case missingManagementTier
+    case birthdayError
+    case notYoungerThanFiveYearsOld
 }
 
 protocol SetUpVisitor {
@@ -62,6 +64,27 @@ struct Visitor: SetUpVisitor {
                 return true
             case .freeChildGuest:
                 if visitor.personalInformation[.dateOfBirth] == nil { throw RegistrationError.missingDateOfBirth }
+                else {
+                    guard let date = visitor.personalInformation[.dateOfBirth] as? String else {
+                        throw RegistrationError.birthdayError
+                    }
+                    let dateFormat = "MM/MM/yyyy"
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = dateFormat
+                    dateFormatter.dateStyle = .short
+                    
+                    guard let birthDate = dateFormatter.date(from: date) else {
+                        throw RegistrationError.birthdayError
+                    }
+                    guard let dateFiveYearsAgo = Calendar.current.date(byAdding: .year, value: -5, to: Date()) else {
+                        throw RegistrationError.birthdayError
+                    }
+                    
+                    if birthDate < dateFiveYearsAgo {
+                        throw RegistrationError.notYoungerThanFiveYearsOld
+                    }                    
+                }
                 return true
             case .foodServices, .rideServices, .maintenance:
                 if visitor.personalInformation[.firstName] == nil { throw RegistrationError.missingFirstName }
@@ -95,6 +118,8 @@ struct Visitor: SetUpVisitor {
         catch RegistrationError.missingSSN { print("Please enter in a social security number.") }
         catch RegistrationError.missingDateOfBirth { print("Please enter in a date of birth.") }
         catch RegistrationError.missingManagementTier { print("Please enter in the management tier.") }
+        catch RegistrationError.birthdayError { print("There is an issue with the date of birth! Please verify it is entered in the format: dd/mm/yyyy") }
+        catch RegistrationError.notYoungerThanFiveYearsOld { print("I'm sorry but you are too old for a Free Child Pass.")}
         return false
     }
 }
